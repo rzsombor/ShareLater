@@ -20,13 +20,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TextShareActivity" >
+        <activity android:name=".TextShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".ShareService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>
 

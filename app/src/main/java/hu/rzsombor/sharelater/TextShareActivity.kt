@@ -1,11 +1,13 @@
 package hu.rzsombor.sharelater
 
+import android.app.job.JobInfo
 import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 
 class TextShareActivity : AppCompatActivity() {
 
@@ -27,7 +29,15 @@ class TextShareActivity : AppCompatActivity() {
         if (action == Intent.ACTION_SEND && type == "text/plain") {
             val text = intent.getStringExtra(Intent.EXTRA_TEXT)
 
-            Toast.makeText(this, "To share: $text", Toast.LENGTH_SHORT).show()
+            val extras = PersistableBundle()
+            extras.putString("text", text)
+
+            val jobInfo = JobInfo.Builder(1, ComponentName(this, ShareService::class.java))
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setExtras(extras)
+                    .build()
+
+            jobScheduler.schedule(jobInfo)
         }
     }
 
