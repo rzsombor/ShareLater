@@ -47,6 +47,10 @@ class TextShareActivity : AppCompatActivity() {
         findViewById<View>(R.id.ApplyButton).setOnClickListener({
             processIntent(sharedText.text.toString(), needsNetworkSwitch.isChecked, delayOption2Millis(delaySpinner.selectedItemPosition))
         })
+
+        findViewById<View>(R.id.ContentRoot).setOnClickListener({
+            finish()
+        })
     }
 
     private fun extractSharedText(intent: Intent): String {
